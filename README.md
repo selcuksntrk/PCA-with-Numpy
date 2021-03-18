@@ -27,7 +27,7 @@ Alse PCA helps us reduce the cost of computing, because of we deal with a matrix
 
 - Centering the data
 
-					<img src="https://latex.codecogs.com/gif.latex?\bg_white&space;\fn_cm&space;X^2" title="X^2" />
+<img src="https://latex.codecogs.com/svg.latex?\bg_white&space;\fn_cm&space;X^2" title="X^2" />
 					
 					![equation](http://www.sciweavers.org/tex2img.php?eq=X%20%3D%20%28X%20-%20%20%5Cbar%7BX%7D%20%29&bc=White&fc=Black&im=png&fs=12&ff=arev&edit=0)
 
