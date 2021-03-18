@@ -1,33 +1,40 @@
 # PCA with Numpy
 
 ## TURKISH
- Numpy ile PCA (Temel Bileşen Analizi) işlemi
 
- Türkçe açıklamalar ve kod için TURKISH kalsörüne bakınız.
+
+Numpy ile PCA (Temel Bileşen Analizi) işlemi
+
+Türkçe açıklamalar ve kod için TURKISH kalsörüne bakınız.
+
 
 ## ENGLISH
 
 PCA with Numpy
 
+
+
 ### What is PCA
+
 
 Pca is a process of dimension reduction. We can reduce the dimension with saving most of information.
 Alse PCA helps us reduce the cost of computing, because of we deal with a matrix with lower dimension.
 
 
+
 ### How PCA is done?
 
 
--Centering the data
+- Centering the data
 
 <img src="http://www.sciweavers.org/tex2img.php?eq=X%20%3D%20%28X%20-%20%20%5Cbar%7BX%7D%20%29&bc=White&fc=Black&im=png&fs=12&ff=arev&edit=0" align="center" border="0" alt="X = (X -  \bar{X} )" width="94" height="21" />
 
 
--![equation](http://www.sciweavers.org/tex2img.php?eq=%5Cbar%7BX%7D&bc=Transparent&fc=Black&im=png&fs=12&ff=iwona&edit=0) is the mean of the n scores
+- ![equation](http://www.sciweavers.org/tex2img.php?eq=%5Cbar%7BX%7D&bc=Transparent&fc=Black&im=png&fs=12&ff=iwona&edit=0) is the mean of the n scores
 
 - Calculating covariance matrix of X
 
-		![equation](http://www.sciweavers.org/tex2img.php?eq=Cov%28X%29%20%3D%20%20%5Cfrac%7B1%7D%7Bn%20-%201%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%28X_%7Bi%7D%20-%20%20%5Cbar%7BX%7D%20%29%20%28X_%7Bi%7D%20-%20%20%5Cbar%7BX%7D%20%29%5E%7BT%7D&bc=Transparent&fc=Black&im=png&fs=12&ff=iwona&edit=0)
+	![equation](http://www.sciweavers.org/tex2img.php?eq=Cov%28X%29%20%3D%20%20%5Cfrac%7B1%7D%7Bn%20-%201%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%28X_%7Bi%7D%20-%20%20%5Cbar%7BX%7D%20%29%20%28X_%7Bi%7D%20-%20%20%5Cbar%7BX%7D%20%29%5E%7BT%7D&bc=Transparent&fc=Black&im=png&fs=12&ff=iwona&edit=0)
 
 	-n is the number of scores in each set of data
 	-![equation](http://www.sciweavers.org/tex2img.php?eq=%5Cbar%7BX%7D&bc=Transparent&fc=Black&im=png&fs=12&ff=iwona&edit=0) is the mean of the n scores
