@@ -36,7 +36,7 @@ Alse PCA helps us reduce the cost of computing, because of we deal with a matrix
 	Further information [Eigenvalues and eigenvectors - Wikipedia](https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors)
 
 
--Then we perform the dot product of our X matrix and the eigenvector matrix but only getting eigenvector matrix's first n columns. 
+- Then we perform the dot product of our X matrix and the eigenvector matrix but only getting eigenvector matrix's first n columns. 
 In this case the n is the dimension we want to reduce our original data. Because of the dot product the result will have n columns. 
 So the data will be reduced successfully.
 
