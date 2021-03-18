@@ -27,7 +27,7 @@ Alse PCA helps us reduce the cost of computing, because of we deal with a matrix
 
 - Centering the data
 
-<img src="https://latex.codecogs.com/png.latex?\bg_white&space;\fn_cm&space;X^2" title="X^2" />
+<img src="http://www.sciweavers.org/tex2img.php?eq=X%20%3D%20%28X%20-%20%20%5Cbar%7BX%7D%20%29&bc=White&fc=Black&im=png&fs=12&ff=arev&edit=0" align="center" border="0" alt="X = (X -  \bar{X} )" width="94" height="21" />
 
 
 - Calculating covariance matrix of X
