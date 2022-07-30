@@ -83,7 +83,7 @@ def findBestVariance(data):
     plotCumulativeVarExp(cumulativeVarianceExplained, data, x_label="Number of Component", y_label="Cumulative variance", title="Cumulative variance vs Number of Component")
     
     
-def PCA2(data, variance=95):
+def PCA(data, variance=95):
     data = centeringData(data, axis=0)
     covarianceMatrix = calculateCovarianceMatrix(data)
     eigenValues, eigenVectors = calculateEigens(covarianceMatrix)
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     
     #En iyi varyans değerini bulmak için kümülatif varyans grafiği çizebiliriz
     findBestVariance(data) #Bu veriler için en iyi varyans değeri, grafik türevinin önemli ölçüde düşük olduğu, yani varyansın yüzde 95 civarında olduğu yerdir.
-    dataPcaApplied = PCA2(data, variance=95)
+    dataPcaApplied = PCA(data, variance=95)
     
     #Verileri incelemek için uygulanan veri pca'nın bazı bileşenlerini çizebiliriz.
     plotPcaComponents(dataPcaApplied, compOne=0, compTwo=1) #komponent 1 vs 2

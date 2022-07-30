@@ -83,7 +83,7 @@ def findBestVariance(data):
     plotCumulativeVarExp(cumulativeVarianceExplained, data, x_label="Number of Component", y_label="Cumulative variance", title="Cumulative variance vs Number of Component")
     
     
-def PCA2(data, variance=95):
+def PCA(data, variance=95):
     data = centeringData(data, axis=0)
     covarianceMatrix = calculateCovarianceMatrix(data)
     eigenValues, eigenVectors = calculateEigens(covarianceMatrix)
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     
     #To find the best variance value we can plot cumulative variance graph
     findBestVariance(data) #For this data, best variance value is where the graph derivative is dramatically low, which is around 95 percent
-    dataPcaApplied = PCA2(data, variance=95)
+    dataPcaApplied = PCA(data, variance=95)
     
     #We can plot some components of the data pca applied to examine the data
     plotPcaComponents(dataPcaApplied, compOne=0, compTwo=1) #Component 1 vs 2
