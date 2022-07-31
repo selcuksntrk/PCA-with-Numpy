@@ -34,7 +34,10 @@ def calculateEigens(covarianceMatrix):                  #Özdeğerleri ve özvek
 
 
 def sortEigens(eigenValues, eigenVectors, order=-1):    #order = -1 ise azalan, 1 ise artan.
-    indexes = eigenValues.argsort()[::-1]               #özdeğerler ve özvektörler büyükten küçüğe sıralandı
+    if order == -1:
+        indexes = eigenValues.argsort()[::-1]           #özdeğerler ve özvektörler büyükten küçüğe sıralandı
+    elif order == 1:
+        indexes = eigenValues.argsort()[::]             #özdeğerler ve özvektörler küçükten büyüğe sıralandı              
     sortedEigenValues = eigenValues[indexes]
     sortedEigenVectors = eigenVectors[:,indexes]
     return sortedEigenValues, sortedEigenVectors
@@ -51,7 +54,7 @@ def findCumulativeVarExp(varianceExplained):             #Özdeğerlerin varyans
     return cumulativeVarianceExplained
 
 
-def plotCumulativeVarExp(cumulativeVarianceExplained, data, x_label="Number of Component", y_label="Cumulative variance", title="Cumulative variance vs Number of Component"):
+def plotCumulativeVarExp(cumulativeVarianceExplained, data, x_label="Komponent sayısı", y_label="Kümülatif Varyans", title="Kümülatif Varyans vs Komponent Sayısı"):
     xs = [(i) for i in range(data.shape[1])]
     plt.plot(xs, cumulativeVarianceExplained)           #Bu kümülatif toplamı grafiksel olarak çizme
     plt.xlabel(x_label)                                 #Burada x ekseni, bileşenlerin sayısını belirtir
@@ -80,7 +83,7 @@ def findBestVariance(data):
     eigenValues, eigenVectors = sortEigens(eigenValues, eigenVectors, order=-1)
     varianceExplained = findVarianceExplained(eigenValues)
     cumulativeVarianceExplained = findCumulativeVarExp(varianceExplained)
-    plotCumulativeVarExp(cumulativeVarianceExplained, data, x_label="Number of Component", y_label="Cumulative variance", title="Cumulative variance vs Number of Component")
+    plotCumulativeVarExp(cumulativeVarianceExplained, data, x_label="Komponent sayısı", y_label="Kümülatif Varyans", title="Kümülatif Varyans vs Komponent Sayısı")
     
     
 def PCA(data, variance=95):
@@ -90,23 +93,31 @@ def PCA(data, variance=95):
     eigenValues, eigenVectors = sortEigens(eigenValues, eigenVectors, order=-1)
     varianceExplained = findVarianceExplained(eigenValues)
     cumulativeVarianceExplained = findCumulativeVarExp(varianceExplained)
-    plotCumulativeVarExp(cumulativeVarianceExplained, data, x_label="Number of Component", y_label="Cumulative variance", title="Cumulative variance vs Number of Component")
+    plotCumulativeVarExp(cumulativeVarianceExplained, data, x_label="Komponent sayısı", y_label="Kümülatif Varyans", title="Kümülatif Varyans vs Komponent Sayısı")
     n = findN(cumulativeVarianceExplained, variance=variance)
     eigenVectors = eigenVectors[:, :n]  #Özvektörlerin ilk n bileşenini seçiyoruz
     dataPcaApplied = np.dot(data, eigenVectors) #Boyut küçültme gerçekleştirme
     return dataPcaApplied
     
 
-def plotPcaComponents(dataPcaApplied, compOne=0, compTwo=1): #PCA bileşenlerini çizdirme
-    plt.plot(dataPcaApplied[:,compOne], dataPcaApplied[:,compTwo], "ro")
-    title = "PCA Component " + str(compOne+1) +" vs PCA Component " + str(compTwo+1)
+def plotPcaComponents(dataPcaApplied, compOne=1, compTwo=2): #İki PCA Komponentinin grafiğini çizdirir
+    if (compOne < 1) or (compTwo < 1):
+        print ("\n\ncompOne veya compTwo birden küçük olamaz, lütfen uygun değerleri girerek tekrar deneyin!!!\n\n")
+        sys.exit(1)
+    elif (compOne > dataPcaApplied.shape[1]) or (compTwo > dataPcaApplied.shape[1]):
+        print ("\n\ncompOne veya compTwo değerleri dataPcaApplied\'ın kolon sayısından fazla olamaz, lütfen uygun değerleri girerek tekrar deneyin!!!\n")
+        print("dataPcaApplied\'ın kolon sayısı:\t", dataPcaApplied.shape[1])
+        print("\n\n")
+        sys.exit(1)
+    plt.plot(dataPcaApplied[:,compOne-1], dataPcaApplied[:,compTwo-1], "ro")
+    title = "PCA Komponent " + str(compOne) +" vs PCA Komponent " + str(compTwo)
     plt.title(title)
     plt.show()
 
 
 def exportData(dataPcaApplied, file_name="dataPcaApplied.csv"):
     np.savetxt(file_name, dataPcaApplied, delimiter=",")
-    print("File created Successfully.")
+    print("Dosya başarıyla oluşturuldu.")
 
 
 if __name__ == '__main__':
@@ -115,7 +126,7 @@ if __name__ == '__main__':
     try:
         data = pd.read_csv(inputFileName, header=None)
     except IOError:
-        print ("[__main__]: ERROR Couldn't open input file " + inputFileName + ", exiting...\n")
+        print ("[__main__]: Hata! " + inputFileName + " dosyası bulunamadı, çıkılıyor...\n")
         sys.exit(1)
     
     #En iyi varyans değerini bulmak için kümülatif varyans grafiği çizebiliriz
@@ -123,9 +134,9 @@ if __name__ == '__main__':
     dataPcaApplied = PCA(data, variance=95)
     
     #Verileri incelemek için uygulanan veri pca'nın bazı bileşenlerini çizebiliriz.
-    plotPcaComponents(dataPcaApplied, compOne=0, compTwo=1) #komponent 1 vs 2
-    plotPcaComponents(dataPcaApplied, compOne=1, compTwo=2) #komponent 2 vs 3
-    plotPcaComponents(dataPcaApplied, compOne=0, compTwo=2) #komponent 1 vs 3
+    plotPcaComponents(dataPcaApplied, compOne=1, compTwo=2) #komponent 1 vs 2
+    plotPcaComponents(dataPcaApplied, compOne=2, compTwo=3) #komponent 2 vs 3
+    plotPcaComponents(dataPcaApplied, compOne=1, compTwo=3) #komponent 1 vs 3
     
     #PCA uygulanan verileri dışa aktarma
     file_name = "dataPcaApplied.csv"

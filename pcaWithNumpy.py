@@ -35,9 +35,9 @@ def calculateEigens(covarianceMatrix):                  #We find the eigenvalues
 
 def sortEigens(eigenValues, eigenVectors, order=-1):    #If order is -1 then descending, if 1 ascending.
     if order == -1:
-        indexes = eigenValues.argsort()[::-1]               #we sort the eigenvalues and eigenvectors in descending order
+        indexes = eigenValues.argsort()[::-1]           #we sort the eigenvalues and eigenvectors in descending order
     elif order == 1:
-        indexes = eigenValues.argsort()[::]               #we sort the eigenvalues and eigenvectors in descending order
+        indexes = eigenValues.argsort()[::]             #we sort the eigenvalues and eigenvectors in ascending order
     sortedEigenValues = eigenValues[indexes]
     sortedEigenVectors = eigenVectors[:,indexes]
     return sortedEigenValues, sortedEigenVectors
