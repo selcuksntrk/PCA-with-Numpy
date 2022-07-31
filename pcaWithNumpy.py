@@ -34,7 +34,10 @@ def calculateEigens(covarianceMatrix):                  #We find the eigenvalues
 
 
 def sortEigens(eigenValues, eigenVectors, order=-1):    #If order is -1 then descending, if 1 ascending.
-    indexes = eigenValues.argsort()[::-1]               #we sort the eigenvalues and eigenvectors in descending order
+    if order == -1:
+        indexes = eigenValues.argsort()[::-1]               #we sort the eigenvalues and eigenvectors in descending order
+    elif order == 1:
+        indexes = eigenValues.argsort()[::]               #we sort the eigenvalues and eigenvectors in descending order
     sortedEigenValues = eigenValues[indexes]
     sortedEigenVectors = eigenVectors[:,indexes]
     return sortedEigenValues, sortedEigenVectors
@@ -97,9 +100,17 @@ def PCA(data, variance=95):
     return dataPcaApplied
     
 
-def plotPcaComponents(dataPcaApplied, compOne=0, compTwo=1): #Plot PCA component vs another component
-    plt.plot(dataPcaApplied[:,compOne], dataPcaApplied[:,compTwo], "ro")
-    title = "PCA Component " + str(compOne+1) +" vs PCA Component " + str(compTwo+1)
+def plotPcaComponents(dataPcaApplied, compOne=1, compTwo=2): #Plot PCA component vs another component
+    if (compOne < 1) or (compTwo < 1):
+        print ("\n\ncompOne or compTwo cannot be lower than one, please try again with proper values!!!\n\n")
+        sys.exit(1)
+    elif (compOne > dataPcaApplied.shape[1]) or (compTwo > dataPcaApplied.shape[1]):
+        print ("\n\ncompOne or compTwo cannot be higher than the column number of dataPcaApplied, please try again with proper values!!!\n")
+        print("The column number of dataPcaApplied is:\t", dataPcaApplied.shape[1])
+        print("\n\n")
+        sys.exit(1)
+    plt.plot(dataPcaApplied[:,compOne-1], dataPcaApplied[:,compTwo-1], "ro")
+    title = "PCA Component " + str(compOne) +" vs PCA Component " + str(compTwo)
     plt.title(title)
     plt.show()
 
@@ -123,9 +134,9 @@ if __name__ == '__main__':
     dataPcaApplied = PCA(data, variance=95)
     
     #We can plot some components of the data pca applied to examine the data
-    plotPcaComponents(dataPcaApplied, compOne=0, compTwo=1) #Component 1 vs 2
-    plotPcaComponents(dataPcaApplied, compOne=1, compTwo=2) #Component 2 vs 3
-    plotPcaComponents(dataPcaApplied, compOne=0, compTwo=2) #Component 1 vs 3
+    plotPcaComponents(dataPcaApplied, compOne=1, compTwo=2) #Component 1 vs 2
+    plotPcaComponents(dataPcaApplied, compOne=2, compTwo=3) #Component 2 vs 3
+    plotPcaComponents(dataPcaApplied, compOne=1, compTwo=3) #Component 1 vs 3
     
     #Exporting the PCA applied data
     file_name = "dataPcaApplied.csv"
